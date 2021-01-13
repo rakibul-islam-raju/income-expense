@@ -1,7 +1,7 @@
 from pathlib import Path
 import os
 import django_heroku
-
+from django.contrib import messages
 
 
 
@@ -30,6 +30,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # third-party
+    'crispy_forms',
 
     # local apps
     'expenses.apps.ExpensesConfig'
@@ -120,3 +123,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 django_heroku.settings(locals())
+
+# crispy forms
+# CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}

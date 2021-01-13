@@ -1,12 +1,96 @@
 {% extends './auth_base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block body %}
 
-<div class="card">
+<div class="card border-0">
+    <div class="card-header border-bottom-0">
+        <h4>Register for a free account</h4>
+    </div>
+
+
+    
     <div class="card-body">
-        <h4>register</h4>
+        <form autocomplete="off" action="{% url 'auth:register' %}" method="POST">
+            {% csrf_token %}
+
+            <div class="form-errors">
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger">
+                            
+                                <strong>{{field.label}}: </strong>{{ error }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_username" class="form-label">Username</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    name="username" 
+                    id="id_username" 
+                    aria-describedby="usernameHelp"
+                    autocomplete="off"
+                >
+                <div id="username-spinner" class="spinner-border text-primary float-end mt-1" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div id="usernameHelp" class="form-text">Username should only contains alphanemeric charecters.</div>
+            </div>
+            <div class="mb-3">
+                <label for="id_email" class="form-label">Email address</label>
+                <input 
+                    type="email" 
+                    class="form-control" 
+                    name="email" 
+                    id="id_email" 
+                    aria-describedby="emailHelp"
+                    autocomplete="off"
+                >
+                 <div id="email-spinner" class="spinner-border text-primary float-end mt-1" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+                <label for="id_password" class="form-label">Password</label>
+                <input 
+                    type="password" 
+                    class="form-control" 
+                    name="password" 
+                    id="id_password">
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="showPassToggle">
+                <label 
+                    class="form-check-label" 
+                    for="showPassToggle">Show Password</label>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
     </div>
 </div>
 
 {% endblock body %}
+
+
+{% block extra_script %}
+
+<script src="{% static 'js/register.js' %}"></script>
+
+{% endblock extra_script %}
