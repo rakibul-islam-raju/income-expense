@@ -1,3 +1,5 @@
+const submitButton = document.getElementById('submitButton')
+
 // show password toggle
 // 
 const password = document.getElementById('id_password')
@@ -39,10 +41,20 @@ username.addEventListener('keyup', (e) => {
         .then((data) => {
             usernameSpinner.style.display = 'none'
             if (data.username_error) {
+                // add error response msg
+                usernameHelp.innerHTML = `${data.username_error}`
+                // add error classes
                 usernameHelp.classList.add('text-danger')
                 username.classList.add('is-invalid')
+                // disable submit button
+                submitButton.classList.add('disabled')
             }else{
+                // remove error response msg
+                usernameHelp.innerHTML = ''
+                // remove error classes
                 username.classList.add('is-valid')
+                // enable submit button
+                submitButton.classList.remove('disabled')
             }
         })
         .catch(err => console.log(err))
@@ -78,10 +90,20 @@ email.addEventListener('keyup', (e) => {
         .then((data) => {
             emailSpinner.style.display = 'none'
             if (data.email_error) {
+                // add error response
+                emailHelp.innerHTML = `${data.email_error}`
+                // add error classes
                 emailHelp.classList.add('text-danger')
                 email.classList.add('is-invalid')
+                // disable submit button
+                submitButton.classList.add('disabled')
             }else{
+                // remove error responses
+                emailHelp.innerHTML = ''
+                // remove error classes
                 email.classList.add('is-valid')
+                // enable submit button
+                submitButton.classList.remove('disabled')
             }
         })
         .catch(err => console.log(err))
