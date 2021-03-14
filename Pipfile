@@ -11,6 +11,7 @@ gunicorn = "*"
 django-heroku = "*"
 django-crispy-forms = "*"
 validate-email = "*"
+six = "*"
 
 [requires]
 python_version = "3.9"
