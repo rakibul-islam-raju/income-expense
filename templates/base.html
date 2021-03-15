@@ -26,7 +26,11 @@
   <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
-      <a class="nav-link" href="#">Sign out</a>
+      {% comment %} <a class="nav-link" href="{% url 'auth:logout' %}">Sign out</a> {% endcomment %}
+      <form action="{% url 'auth:logout' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="nav-link btn btn-dark p-2">Logout</button>
+      </form>
     </li>
   </ul>
 </header>
@@ -36,6 +40,7 @@
     {% include 'includes/_sidebar.html' %}
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      {% include 'includes/_messages.html' %}
       {% block body %}
       {% endblock body %}
     </main>

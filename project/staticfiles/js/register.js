@@ -1,20 +1,5 @@
 const submitButton = document.getElementById('submitButton')
 
-// show password toggle
-// 
-const password = document.getElementById('id_password')
-const showPassToggle = document.getElementById('showPassToggle')
-
-showPassToggle.addEventListener('click', () => {
-    if (showPassToggle.checked == true) {
-        password.setAttribute('type', 'text')
-    }else{
-        password.setAttribute('type', 'password')
-    }
-    
-})
-
-
 // Username validation
 // 
 const username = document.getElementById('id_username')
@@ -60,6 +45,7 @@ username.addEventListener('keyup', (e) => {
         .catch(err => console.log(err))
     }else{
         usernameSpinner.style.display = 'none'
+        usernameHelp.style.display = 'none'
     }
     
 })
@@ -109,6 +95,7 @@ email.addEventListener('keyup', (e) => {
         .catch(err => console.log(err))
     }else{
         emailSpinner.style.display = 'none'
+        emailHelp.style.display = 'none'
     }
     
 })

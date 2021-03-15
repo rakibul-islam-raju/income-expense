@@ -6,13 +6,12 @@
 
 <div class="card border-0">
     <div class="card-header border-bottom-0">
-        <h4>Login</h4>
+        <h3 class="text-center">Login</h3>
     </div>
-
 
     
     <div class="card-body">
-        <form autocomplete="off" action="{% url 'auth:register' %}" method="POST">
+        <form autocomplete="off" action="{% url 'auth:login' %}" method="POST">
             {% csrf_token %}
 
             <div class="form-errors">
@@ -45,25 +44,7 @@
                     aria-describedby="usernameHelp"
                     autocomplete="off"
                 >
-                <div id="username-spinner" class="spinner-border text-primary float-end mt-1" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
                 <div id="usernameHelp" class="form-text"></div>
-            </div>
-            <div class="mb-3">
-                <label for="id_email" class="form-label">Email address</label>
-                <input 
-                    type="email" 
-                    class="form-control" 
-                    name="email" 
-                    id="id_email" 
-                    aria-describedby="emailHelp"
-                    autocomplete="off"
-                >
-                 <div id="email-spinner" class="spinner-border text-primary float-end mt-1" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-                <div id="emailHelp" class="form-text"></div>
             </div>
             <div class="mb-3">
                 <label for="id_password" class="form-label">Password</label>
@@ -87,3 +68,10 @@
 </div>
 
 {% endblock body %}
+
+
+{% block extra_script %}
+
+<script src="{% static 'js/auth.js' %}"></script>
+
+{% endblock extra_script %}
