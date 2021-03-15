@@ -60,7 +60,6 @@ class EmailValidaiton(View):
             return JsonResponse({
                 'email_error': 'This email is already used.'
             }, status=409)
-        # return JsonResponse({'email_valid': True})
 
 
 class RegisterView(View):
@@ -83,6 +82,7 @@ class RegisterView(View):
             user.set_password(password)
             user.is_active = False
             user.save()
+            messages.success(request, 'Registration Successfull.')
 
             # Generate activacation url
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
@@ -102,8 +102,7 @@ class RegisterView(View):
                 [email,]  # recipient
             )
             email.send(fail_silently=False)
-
-            messages.success(request, 'Registration Successfull.')
+            messages.success(request, 'Account activation email has been sent to your email.')
         else:
             messages.error(request, 'Invalid form.')
 
@@ -115,5 +114,33 @@ class RegisterView(View):
 
 
 class VerificationView(View):
-    def get(self, request, uid, token):
-        return redirect('register')
+    def get(self, request, uidb64, token):
+        try:
+            # decode user_id
+            _id = force_text(urlsafe_base64_decode(uidb64))
+            # get exact user
+            user = User.objects.get(pk=_id)
+
+            # check if token already verified
+            if not token_generator.check_token(user, token):
+                messages.info(request, 'User already activated.')
+                return redirect('auth:login')
+            # check if user already acticated
+            elif user.is_active:
+                messages.info(request, 'User already activated.')
+                return redirect('auth:login')
+            # if user not activated or not token is verified
+            else:
+                user.is_active = True
+                user.save()
+                messages.success(request, 'Account acctivated successfully..')
+                return redirect('auth:login')
+        except Exception as ex:
+            pass
+
+        return redirect('auth:login')
+
+
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'auth/login.html')
