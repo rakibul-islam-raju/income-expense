@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'crispy_forms',
 
     # local apps
-    'expenses.apps.ExpensesConfig'
+    'expenses.apps.ExpensesConfig',
+    'userpreferences.apps.UserpreferencesConfig',
 ]
 
 MIDDLEWARE = [
