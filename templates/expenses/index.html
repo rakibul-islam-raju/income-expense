@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="col">
+            <div class="card shadow mt-4">
+                <div class="card-header d-flex justify-content-between">
+                    <h5 class="text-secondary">Expenses</h5>
+                    <a href="{% url 'expenses:expense_create' %}" class="btn btn-primary btn-sm">
+                        Add Expense
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Amount</th>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for expense in expenses %}
+                                <tr>
+                                    <td>{{ expense.title }}</td>
+                                    <td>{{ expense.amount }}</td>
+                                    <td>{{ expense.description }}</td>
+                                    <td>{{ expense.category }}</td>
+                                    <td>{{ expense.date|date }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <a href="{% url 'expenses:expense_edit' expense.pk %}" class="btn btn-outline-primary btn-sm">Edit</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
