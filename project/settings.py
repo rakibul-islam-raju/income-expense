@@ -126,7 +126,7 @@ MEDIA_URL = '/media/'
 django_heroku.settings(locals())
 
 # crispy forms
-# CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 MESSAGE_TAGS = {
@@ -134,3 +134,5 @@ MESSAGE_TAGS = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+LOGIN_URL = '/auth/login/'
