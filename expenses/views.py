@@ -16,6 +16,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 class ExpenseListView(LoginRequiredMixin, ListView):
     template_name = 'expenses/index.html'
     context_object_name = 'expenses'
+    paginate_by = 20
     
     def get_queryset(self):
         return Expense.objects.filter(owner=self.request.user)
