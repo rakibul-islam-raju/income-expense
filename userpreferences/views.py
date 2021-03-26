@@ -18,7 +18,7 @@ class IndexView(LoginRequiredMixin, View):
         preferences = None
         exists = UserPreferences.objects.filter(user=request.user).exists()
         if exists:
-            preferences = exists
+            preferences = UserPreferences.objects.get(user=request.user)
 
         return preferences
 
