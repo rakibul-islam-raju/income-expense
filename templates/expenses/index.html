@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block body %}
     <div class="row justify-content-center">
@@ -11,7 +12,14 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
+
+                    <div class="d-flex justify-content-end mb-3">
+                        <div class="col-4">
+                            <input class="form-control" type="text" name="searchField" id="searchField" placeholder="Search here...">
+                        </div>
+                    </div>
+
+                    <div class="table-responsive dataTable">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -45,9 +53,49 @@
                             {% include '../includes/_pagination.html' %}
                         </div>
                     </div>
+
+                    <div class="outputTable">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Amount</th>
+                                        <th>Description</th>
+                                        <th>Category</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody">
+                                    {% comment %} <tr>
+                                        <td>{{ expense.title }}</td>
+                                        <td>{{ expense.amount }}</td>
+                                        <td>{{ expense.description }}</td>
+                                        <td>{{ expense.category }}</td>
+                                        <td>{{ expense.date|date }}</td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="{% url 'expenses:expense_edit' expense.pk %}" class="btn btn-outline-primary btn-sm">Edit</a>
+                                            </div>
+                                        </td>
+                                    </tr> {% endcomment %}
+                                </tbody>
+                            </table>
+                            {% comment %} Pagination {% endcomment %}
+                            <div class="">
+                                {% include '../includes/_pagination.html' %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="emptyData"></div>
                 </div>
             </div>
         </div>
     </div>
 
 {% endblock body %}
+
+{% block extra_scripts %}
+    <script src="{% static 'js/search_expenses.js' %}"></script>
+{% endblock extra_scripts %}
