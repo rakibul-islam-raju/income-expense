@@ -18,13 +18,19 @@
                             <input class="form-control" type="text" name="searchField" id="searchField" placeholder="Search here...">
                         </div>
                     </div>
+                    
+                    <div class="loding text-center mb-3">
+                        <div class="spinner-border text-secondary" role="status">
+                            <span class="sr-only"></span>
+                        </div>
+                    </div>
 
                     <div class="table-responsive dataTable">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>Title</th>
-                                    <th>Amount</th>
+                                    <th>Amount ({{preferences.currency}})</th>
                                     <th>Description</th>
                                     <th>Category</th>
                                     <th>Date</th>
@@ -60,7 +66,7 @@
                                 <thead>
                                     <tr>
                                         <th>Title</th>
-                                        <th>Amount</th>
+                                        <th>Amount ({{preferences.currency}})</th>
                                         <th>Description</th>
                                         <th>Category</th>
                                         <th>Date</th>

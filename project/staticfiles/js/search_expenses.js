@@ -3,9 +3,11 @@ const outputTable = document.querySelector('.outputTable')
 const tbody = document.querySelector('.tbody')
 const dataTable = document.querySelector('.dataTable')
 const emptyData = document.querySelector('.emptyData')
+const loding = document.querySelector('.loding')
 
 outputTable.style.display = "none";
 emptyData.style.display = "none";
+loding.style.display = "none";
 
 const url = '/expenses/search-expenses'
 
@@ -13,15 +15,16 @@ searchField.addEventListener('keyup', (e)=>{
     const searchvalue = e.target.value;
     
     if(searchvalue.trim().length > 0){
+        loding.style.display = "block";
+        tbody.innerHTML = ''
         fetch(url, {
             body: JSON.stringify({searchText: searchvalue}),
             method: 'POST'
         })
         .then(res => res.json())
         .then(data => {
-            // console.log(data.categories);
-            console.log(data.expenses);
-            
+            // console.log(data.expenses);
+            loding.style.display = "none";
             if(data.length === 0){
                 emptyData.style.display = 'block';
                 emptyData.innerHTML = 'No data found.'
@@ -35,7 +38,7 @@ searchField.addEventListener('keyup', (e)=>{
                     const category = (data.categories).find(obj => (obj.id == item.category_id))
                     console.log(category);
 
-                    tbody.innerHTML = `
+                    tbody.innerHTML += `
                         <tr>
                             <td>${ item.title }</td>
                             <td>${ item.amount }</td>
