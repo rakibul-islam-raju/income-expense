@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     # local apps
     'expenses.apps.ExpensesConfig',
     'userpreferences.apps.UserpreferencesConfig',
+    'income.apps.IncomeConfig',
 ]
 
 MIDDLEWARE = [

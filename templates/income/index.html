@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="col">
+            <div class="card shadow mt-4">
+                <div class="card-header d-flex justify-content-between">
+                    <h5 class="text-secondary">Incomes</h5>
+                    <a href="{% url 'income:income_create' %}" class="btn btn-primary btn-sm">
+                        Add Income
+                    </a>
+                </div>
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-end mb-3">
+                        <div class="col-4">
+                            <input class="form-control" type="text" name="searchField" id="searchField" placeholder="Search here...">
+                        </div>
+                    </div>
+                    
+                    <div class="loding text-center mb-3">
+                        <div class="spinner-border text-secondary" role="status">
+                            <span class="sr-only"></span>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive dataTable">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Amount ({{preferences.currency}})</th>
+                                    <th>Description</th>
+                                    <th>Source</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for income in incomes %}
+                                <tr>
+                                    <td>{{ income.title }}</td>
+                                    <td>{{ income.amount }}</td>
+                                    <td>{{ income.description }}</td>
+                                    <td>{{ income.source }}</td>
+                                    <td>{{ income.date|date }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <a href="{% url 'income:income_edit' income.pk %}" class="btn btn-outline-primary btn-sm">Edit</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="">
+                            {% include '../includes/_pagination.html' %}
+                        </div>
+                    </div>
+
+                    <div class="outputTable">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Amount ({{preferences.currency}})</th>
+                                        <th>Description</th>
+                                        <th>Source</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody">
+                                </tbody>
+                            </table>
+                            <div class="">
+                                {% include '../includes/_pagination.html' %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="emptyData"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
+
+{% block extra_scripts %}
+    <script src="{% static 'js/search_income.js' %}"></script>
+{% endblock extra_scripts %}
