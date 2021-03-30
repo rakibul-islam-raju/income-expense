@@ -26,9 +26,13 @@ class SerchExpenses(View):
             description__icontains=search_str, owner=self.request.user
         ) | Expense.objects.filter(
             date__icontains=search_str, owner=self.request.user
+        ) | Expense.objects.filter(
+            category__name__icontains=search_str, owner=self.request.user
         )
 
-        categories = Category.objects.all()
+        categories = Category.objects.filter(
+            owner=self.request.user
+        )
 
         data = {
             'expenses': list(expenses.values()),

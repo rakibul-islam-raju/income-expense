@@ -14,7 +14,7 @@
 
                         <div class="d-flex justify-content-center mt-4">
                             <div class="">
-                                <a href="{% url 'expenses:expense_list' %}" class="btn btn-secondary">Cancel</a>
+                                <button onclick="goBack()" type="button" class="btn btn-secondary goBack">Cancel</button>
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </div>
                         </div>
@@ -25,3 +25,12 @@
     </div>
 
 {% endblock body %}
+
+
+{% block extra_scripts %}
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+{% endblock extra_scripts %}

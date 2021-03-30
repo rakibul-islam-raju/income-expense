@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     # local apps
     'expenses.apps.ExpensesConfig',
     'userpreferences.apps.UserpreferencesConfig',
+    'income.apps.IncomeConfig',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +63,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # custom processor
+                'expenses.context_processors.userpreferences'
             ],
         },
     },

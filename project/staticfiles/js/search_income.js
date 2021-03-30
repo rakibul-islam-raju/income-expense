@@ -9,7 +9,7 @@ outputTable.style.display = "none";
 emptyData.style.display = "none";
 loding.style.display = "none";
 
-const url = '/expenses/search-expenses'
+const url = '/income/search-income'
 
 searchField.addEventListener('keyup', (e)=>{
     const searchvalue = e.target.value;
@@ -23,7 +23,6 @@ searchField.addEventListener('keyup', (e)=>{
         })
         .then(res => res.json())
         .then(data => {
-            // console.log(data.expenses);
             loding.style.display = "none";
             if(data.length === 0){
                 emptyData.style.display = 'block';
@@ -34,20 +33,20 @@ searchField.addEventListener('keyup', (e)=>{
                 emptyData.style.display = 'none';
                 dataTable.style.display = 'none';
                 outputTable.style.display = 'block';
-                (data.expenses).forEach(item => {
-                    const category = (data.categories).find(obj => (obj.id == item.category_id))
-                    console.log(category);
+                (data.incomes).forEach(item => {
+                    const source = (data.sources).find(obj => (obj.id == item.source_id))
+                    console.log(source);
 
                     tbody.innerHTML += `
                         <tr>
                             <td>${ item.title }</td>
                             <td>${ item.amount }</td>
                             <td>${ item.description }</td>
-                            <td>${ category.name }</td>
+                            <td>${ source.name }</td>
                             <td>${ item.date }</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a href="/expense/${item.id}/edit/" class="btn btn-outline-primary btn-sm">Edit</a>
+                                    <a href="/income/${item.id}/edit/" class="btn btn-outline-primary btn-sm">Edit</a>
                                 </div>
                             </td>
                         </tr>

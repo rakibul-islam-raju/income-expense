@@ -6,9 +6,9 @@
         <div class="col">
             <div class="card shadow mt-4">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="text-secondary">Expenses</h5>
-                    <a href="{% url 'expenses:expense_create' %}" class="btn btn-primary btn-sm">
-                        Add Expense
+                    <h5 class="text-secondary">Incomes</h5>
+                    <a href="{% url 'income:income_create' %}" class="btn btn-primary btn-sm">
+                        Add Income
                     </a>
                 </div>
                 <div class="card-body">
@@ -32,29 +32,28 @@
                                     <th>Title</th>
                                     <th>Amount ({{preferences.currency}})</th>
                                     <th>Description</th>
-                                    <th>Category</th>
+                                    <th>Source</th>
                                     <th>Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for expense in expenses %}
+                                {% for income in incomes %}
                                 <tr>
-                                    <td>{{ expense.title }}</td>
-                                    <td>{{ expense.amount }}</td>
-                                    <td>{{ expense.description }}</td>
-                                    <td>{{ expense.category }}</td>
-                                    <td>{{ expense.date|date }}</td>
+                                    <td>{{ income.title }}</td>
+                                    <td>{{ income.amount }}</td>
+                                    <td>{{ income.description }}</td>
+                                    <td>{{ income.source }}</td>
+                                    <td>{{ income.date|date }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="{% url 'expenses:expense_edit' expense.pk %}" class="btn btn-outline-primary btn-sm">Edit</a>
+                                            <a href="{% url 'income:income_edit' income.pk %}" class="btn btn-outline-primary btn-sm">Edit</a>
                                         </div>
                                     </td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
-                        {% comment %} Pagination {% endcomment %}
                         <div class="">
                             {% include '../includes/_pagination.html' %}
                         </div>
@@ -68,27 +67,14 @@
                                         <th>Title</th>
                                         <th>Amount ({{preferences.currency}})</th>
                                         <th>Description</th>
-                                        <th>Category</th>
+                                        <th>Source</th>
                                         <th>Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="tbody">
-                                    {% comment %} <tr>
-                                        <td>{{ expense.title }}</td>
-                                        <td>{{ expense.amount }}</td>
-                                        <td>{{ expense.description }}</td>
-                                        <td>{{ expense.category }}</td>
-                                        <td>{{ expense.date|date }}</td>
-                                        <td>
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="{% url 'expenses:expense_edit' expense.pk %}" class="btn btn-outline-primary btn-sm">Edit</a>
-                                            </div>
-                                        </td>
-                                    </tr> {% endcomment %}
                                 </tbody>
                             </table>
-                            {% comment %} Pagination {% endcomment %}
                             <div class="">
                                 {% include '../includes/_pagination.html' %}
                             </div>
@@ -103,5 +89,5 @@
 {% endblock body %}
 
 {% block extra_scripts %}
-    <script src="{% static 'js/search_expenses.js' %}"></script>
+    <script src="{% static 'js/search_income.js' %}"></script>
 {% endblock extra_scripts %}
