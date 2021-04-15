@@ -8,8 +8,6 @@
     <div class="card-header border-bottom-0">
         <h4>Register for a free account</h4>
     </div>
-
-
     
     <div class="card-body">
         <form autocomplete="off" action="{% url 'auth:register' %}" method="POST">
@@ -75,14 +73,20 @@
             </div>
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="showPassToggle">
-                <label 
-                    class="form-check-label" 
-                    for="showPassToggle">Show Password</label>
+                <label class="form-check-label" for="showPassToggle">
+                    Show Password
+                </label>
             </div>
             <div class="d-grid">
                 <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
+    </div>
+
+    <div class="text-center text-secondary mt-5">
+        <p>
+            Already have an account? <a href="{% url 'auth:login' %}">Login here.</a>
+        </p>
     </div>
 </div>
 

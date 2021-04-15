@@ -65,6 +65,15 @@
             </div>
         </form>
     </div>
+
+    <div class="text-center text-secondary mt-5">
+        <p>
+            <a href="{% url 'auth:request-reset-password' %}">Forgot Password?</a>
+        </p>
+        <p>
+            Don't have an account? <a href="{% url 'auth:register' %}">Register here</a>
+        </p>
+    </div>
 </div>
 
 {% endblock body %}
