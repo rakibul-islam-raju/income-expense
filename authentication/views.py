@@ -18,8 +18,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 
 from .forms import *
-from .utils import token_generator
-
+from .utils import token_generator, EmailThread
 
 class UsernameValidaiton(View):
     def post(self, request, *args, **kwargs):
@@ -103,7 +102,7 @@ class RegisterView(View):
                 'no-reply@domain.com',  # from
                 [email, ]  # recipient
             )
-            email.send(fail_silently=False)
+            EmailThread(email).start()
             messages.success(
                 request, 'Account activation email has been sent to your email.')
         else:
@@ -207,7 +206,7 @@ class RequestResetPassword(View):
                 'no-reply@domain.com',  # from
                 [email, ]  # recipient
             )
-            email.send(fail_silently=False)
+            EmailThread(email).start()
             messages.success(
                 request, 'Password reset email has been sent to your email.')
             return redirect('./')
