@@ -1,3 +1,6 @@
+import json
+import datetime
+
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView, CreateView, ListView
@@ -11,7 +14,6 @@ from django.http import JsonResponse
 from .forms import *
 from .models import *
 
-import json
 
 
 class SerchExpenses(View):
@@ -96,3 +98,36 @@ class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         return Expense.objects.filter(owner=self.request.user)
+
+
+class ExpenseSummaryData(View):
+    def get(self, request, *args, **kwargs):
+        todays_date = datetime.date.today()
+        last_month = todays_date - datetime.timedelta(days=30)
+
+        expenses = Expense.objects.filter(date__gte=last_month, date__lte=todays_date)
+
+        finalrep = {}
+
+        def get_category(expense):
+            return expense.category
+        category_list = list(set(map(get_category, expenses)))
+
+        def get_expense_category_amount(category):
+            amount = 0
+            filtered_by_category = expenses.filter(category=category)
+
+            for item in filtered_by_category:
+                amount += item.amount
+            return amount
+
+        for x in expenses:
+            for y in category_list:
+                finalrep[y.name] = int(get_expense_category_amount(y))
+
+        return JsonResponse({'expense_category_data': finalrep}, safe=False)
+
+
+class ExpenseSummaryView(View):
+    def get(self, request):
+        return render(request, 'expenses/expense_summary.html')
