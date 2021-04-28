@@ -16,4 +16,5 @@ urlpatterns = [
     path('expenses/search-expenses', csrf_exempt(SerchExpenses.as_view()), name='expense_search'),
     path('expenses/summary-data', csrf_exempt(ExpenseSummaryData.as_view()), name='expense_summary_data'),
     path('expenses/summary/', ExpenseSummaryView.as_view(), name='expense_summary'),
+    path('expenses/export_csv/', export_csv, name='export_csv'),
 ]
