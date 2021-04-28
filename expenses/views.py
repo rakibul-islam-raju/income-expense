@@ -1,3 +1,4 @@
+import csv
 import json
 import datetime
 
@@ -9,11 +10,10 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.base import View
 from django.views.generic.edit import DeleteView, UpdateView
-from django.http import JsonResponse
+from django.http import JsonResponse, response, HttpResponse
 
 from .forms import *
 from .models import *
-
 
 
 class SerchExpenses(View):
@@ -42,7 +42,6 @@ class SerchExpenses(View):
         }
 
         # print(list(data))
-
 
         return JsonResponse(data, safe=False)
 
@@ -105,7 +104,8 @@ class ExpenseSummaryData(View):
         todays_date = datetime.date.today()
         last_month = todays_date - datetime.timedelta(days=30)
 
-        expenses = Expense.objects.filter(date__gte=last_month, date__lte=todays_date)
+        expenses = Expense.objects.filter(
+            date__gte=last_month, date__lte=todays_date)
 
         finalrep = {}
 
@@ -131,3 +131,20 @@ class ExpenseSummaryData(View):
 class ExpenseSummaryView(View):
     def get(self, request):
         return render(request, 'expenses/expense_summary.html')
+
+
+def export_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=Expense' + \
+        str(datetime.datetime.now())+'.csv'
+
+    writter = csv.writer(response)
+    writter.writerow(['Amount', 'Description', 'Category', 'Date'])
+
+    expenses = Expense.objects.filter(owner=request.user)
+
+    for expense in expenses:
+        writter.writerow([expense.amount, expense.description,
+                         expense.category, expense.date])
+
+    return response
