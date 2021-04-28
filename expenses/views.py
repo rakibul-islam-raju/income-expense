@@ -139,12 +139,12 @@ def export_csv(request):
         str(datetime.datetime.now())+'.csv'
 
     writter = csv.writer(response)
-    writter.writerow(['Amount', 'Description', 'Category', 'Date'])
+    writter.writerow(['Title', 'Amount', 'Description', 'Category', 'Date'])
 
     expenses = Expense.objects.filter(owner=request.user)
 
     for expense in expenses:
-        writter.writerow([expense.amount, expense.description,
+        writter.writerow([expense.title, expense.amount, expense.description,
                          expense.category, expense.date])
 
     return response
