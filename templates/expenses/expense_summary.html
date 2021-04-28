@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="col">
+            <div class="card shadow mt-4">
+                <div class="card-header d-flex justify-content-between">
+                    <h5 class="text-secondary">Expense Summary</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="expenseChart" height="120"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
+
+{% block extra_scripts %}
+    <script src="{% static 'js/expense_chart.js' %}"></script>
+{% endblock extra_scripts %}
